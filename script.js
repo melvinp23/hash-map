@@ -124,7 +124,19 @@ class HashMap {
 		return allKeys;
 	}
 
-	values() {}
+	values() {
+		const allValues = [];
+
+		this.buckets.forEach(bucket => {
+			if (bucket) {
+				bucket.forEach(([_, value]) => {
+					allKeys.push(value);
+				});
+			}
+		});
+
+		return allValues;
+	}
 
 	entries() {}
 }
