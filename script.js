@@ -100,7 +100,9 @@ class HashMap {
 		return false;
 	}
 
-	length() {}
+	length() {
+		return this.size;
+	}
 
 	clear() {}
 
