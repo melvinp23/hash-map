@@ -64,7 +64,20 @@ class HashMap {
 		});
 	}
 
-	get(key) {}
+	get(key) {
+		const index = this.hash(key);
+		const bucket = this.buckets[index];
+
+		if (!bucket) return undefined;
+
+		for (let i = 0; i < bucket.length; i++) {
+			if (bucket[i][0] === key) {
+				return bucket[i][1];
+			}
+		}
+
+		return undefined;
+	}
 
 	has(key) {}
 
