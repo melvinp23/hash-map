@@ -6,6 +6,7 @@ class HashMap {
 		this.buckets = new Array(this.capacity);
 	}
 
+	// Generates a hash code and modulates by capacity on each iteration to prevent integer overflow and fit within current bucket bounds
 	hash(key) {
 		let hashCode = 0;
 		const primeNumber = 31;
@@ -17,6 +18,7 @@ class HashMap {
 		return hashCode;
 	}
 
+	// Inserts a key-value pair or updates if the key already exists
 	set(key, value) {
 		const index = this.hash(key);
 
@@ -33,7 +35,7 @@ class HashMap {
 
 		for (let i = 0; i < bucket.length; i++) {
 			if (bucket[i][0] === key) {
-				bucket[i][1] = value;
+				bucket[i][1] = value; // Overwrite existing value
 				found = true;
 				break;
 			}
@@ -44,16 +46,18 @@ class HashMap {
 			this.size++;
 		}
 
+		// Check if capacity needs to expand based on load factor
 		if (this.size / this.capacity > this.loadFactor) {
 			this.resize();
 		}
 	}
 
+	// Doubles the capacity of the hash map and re-hashes all existing entries
 	resize() {
 		const oldBuckets = this.buckets;
 		this.capacity *= 2;
 		this.buckets = new Array(this.capacity);
-		this.size = 0;
+		this.size = 0; // Will be re-incremented during set()
 
 		oldBuckets.forEach(bucket => {
 			if (bucket) {
@@ -64,6 +68,7 @@ class HashMap {
 		});
 	}
 
+	// Returns the value associated with the key, or undefined if not found
 	get(key) {
 		const index = this.hash(key);
 		const bucket = this.buckets[index];
@@ -79,10 +84,12 @@ class HashMap {
 		return undefined;
 	}
 
+	// Returns true if the key is in the hash map, returns false otherwise
 	has(key) {
 		return this.get(key) !== undefined;
 	}
 
+	// Remove entry with the given key, returns true if found/removed, returns false otherwise
 	remove(key) {
 		const index = this.hash(key);
 		const bucket = this.buckets[index];
@@ -100,16 +107,19 @@ class HashMap {
 		return false;
 	}
 
+	// Returns the number of stored keys in the hash map
 	length() {
 		return this.size;
 	}
 
+	// CLear all entries and resets to initial capacity
 	clear() {
 		this.capacity = 16;
 		this.buckets = new Array(this.capacity);
 		this.size = 0;
 	}
 
+	// Returns an array containing all keys
 	keys() {
 		const allKeys = [];
 
@@ -124,6 +134,7 @@ class HashMap {
 		return allKeys;
 	}
 
+	// Returns an array containing all values
 	values() {
 		const allValues = [];
 
@@ -138,6 +149,7 @@ class HashMap {
 		return allValues;
 	}
 
+	// Returns an array containing each key-value pair [key, value]
 	entries() {
 		const allEntries = [];
 		this.buckets.forEach(bucket => {
