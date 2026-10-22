@@ -138,5 +138,16 @@ class HashMap {
 		return allValues;
 	}
 
-	entries() {}
+	entries() {
+		const allEntries = [];
+		this.buckets.forEach(bucket => {
+			if (bucket) {
+				bucket.forEach(pair => {
+					allEntries.push(pair);
+				});
+			}
+		});
+
+		return allEntries;
+	}
 }
