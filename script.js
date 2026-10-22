@@ -79,7 +79,9 @@ class HashMap {
 		return undefined;
 	}
 
-	has(key) {}
+	has(key) {
+		return this.get(key) !== undefined;
+	}
 
 	remove(key) {}
 
