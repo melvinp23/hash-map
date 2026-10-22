@@ -17,7 +17,37 @@ class HashMap {
 		return hashCode;
 	}
 
-	set(key, value) {}
+	set(key, value) {
+		const index = this.hash(key);
+
+		if (index < 0 || index >= this.buckets.length) {
+			throw new Error('Trying to access index out of bound');
+		}
+
+		if (!this.buckets[index]) {
+			this.buckets[index] = [];
+		}
+
+		const bucket = this.buckets[index];
+		let found = false;
+
+		for (let i = 0; i < bucket.length; i++) {
+			if (bucket[i][0] === key) {
+				bucket[i][1] = value;
+				found = true;
+				break;
+			}
+		}
+
+		if (!found) {
+			bucket.push([key, value]);
+			this.size++;
+		}
+
+		if (this.size / this.capacity > this.loadFactor) {
+			this.resize();
+		}
+	}
 
 	get(key) {}
 
