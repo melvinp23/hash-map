@@ -110,7 +110,19 @@ class HashMap {
 		this.size = 0;
 	}
 
-	keys() {}
+	keys() {
+		const allKeys = [];
+
+		this.buckets.forEach(bucket => {
+			if (bucket) {
+				bucket.forEach(([key]) => {
+					allKeys.push(key);
+				});
+			}
+		});
+
+		return allKeys;
+	}
 
 	values() {}
 
