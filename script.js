@@ -49,6 +49,21 @@ class HashMap {
 		}
 	}
 
+	resize() {
+		const oldBuckets = this.buckets;
+		this.capacity *= 2;
+		this.buckets = new Array(this.capacity);
+		this.size = 0;
+
+		oldBuckets.forEach(bucket => {
+			if (bucket) {
+				bucket.forEach(([key, value]) => {
+					this.set(key, value);
+				});
+			}
+		});
+	}
+
 	get(key) {}
 
 	has(key) {}
