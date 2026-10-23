@@ -213,7 +213,20 @@ class HashSet {
 		this.add(key);
 	}
 
-	resize() {}
+	resize() {
+		const oldBuckets = this.buckets;
+		this.capacity *= 2;
+		this.buckets = new Array(this.capacity);
+		this.size = 0;
+
+		oldBuckets.forEach(bucket => {
+			if (bucket) {
+				bucket.forEach(key => {
+					this.add(key);
+				});
+			}
+		});
+	}
 
 	has(key) {}
 
