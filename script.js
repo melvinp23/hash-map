@@ -278,7 +278,9 @@ class HashSet {
 		return allKeys;
 	}
 
-	values() {}
+	values() {
+		return this.keys();
+	}
 
 	entries() {}
 }
