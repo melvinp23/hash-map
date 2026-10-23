@@ -228,9 +228,33 @@ class HashSet {
 		});
 	}
 
-	has(key) {}
+	has(key) {
+		const index = this.hash(key);
+		const bucket = this.buckets[index];
+		if (!bucket) return false;
 
-	remove(key) {}
+		for (let i = 0; i < bucket.length; i++) {
+			if (bucket[i] === key) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	remove(key) {
+		const index = this.hash(key);
+		const bucket = this.buckets[index];
+		if (!bucket) return false;
+
+		for (let i = 0; i < bucket.length; i++) {
+			if (bucket[i] === key) {
+				bucket.splice(i, 1);
+				this.size--;
+				return true;
+			}
+		}
+		return false;
+	}
 
 	length() {}
 
