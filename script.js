@@ -143,7 +143,7 @@ class HashMap {
 		this.buckets.forEach(bucket => {
 			if (bucket) {
 				bucket.forEach(([_, value]) => {
-					allKeys.push(value);
+					allValues.push(value);
 				});
 			}
 		});
@@ -164,4 +164,35 @@ class HashMap {
 
 		return allEntries;
 	}
+}
+
+class HashSet {
+	constructor(capacity = 16, loadFactor = 0.75) {
+		this.capacity = capacity;
+		this.loadFactor = loadFactor;
+		this.size = 0;
+		this.buckets = new Array(this.capacity);
+	}
+
+	hash(key) {}
+
+	add(key) {}
+
+	set(key) {}
+
+	resize() {}
+
+	has(key) {}
+
+	remove(key) {}
+
+	length() {}
+
+	clear() {}
+
+	keys() {}
+
+	values() {}
+
+	entries() {}
 }
