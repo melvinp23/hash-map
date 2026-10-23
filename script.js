@@ -174,6 +174,7 @@ class HashSet {
 		this.buckets = new Array(this.capacity);
 	}
 
+	// Generates a hash code and modulates by capacity on each iteration to prevent integer overflow and fit within current bucket rounds
 	hash(key) {
 		let hashCode = 0;
 		const primeNumber = 31;
@@ -183,6 +184,7 @@ class HashSet {
 		return hashCode;
 	}
 
+	// Add a key to the set if it doesn't already exist
 	add(key) {
 		const index = this.hash(key);
 		if (index < 0 || index >= this.buckets.length) {
@@ -195,29 +197,33 @@ class HashSet {
 
 		const bucket = this.buckets[index];
 
+		// Check if the key already exists (sets do not allow duplicates)
 		for (let i = 0; i < bucket.length; i++) {
 			if (bucket[i] === key) {
-				return;
+				return; // Key already exist, do nothing
 			}
 		}
 
 		bucket.push(key);
 		this.size++;
 
+		// Check if capacity needs to expand based on load factor
 		if (this.size / this.capacity > this.loadFactor) {
 			this.resize();
 		}
 	}
 
+	// Alias set() to add() for full compatibility with HashMap syntax if desired
 	set(key) {
 		this.add(key);
 	}
 
+	// Doubles the capacity of the set and re-hashes all existing entries
 	resize() {
 		const oldBuckets = this.buckets;
 		this.capacity *= 2;
 		this.buckets = new Array(this.capacity);
-		this.size = 0;
+		this.size = 0; // Will be re-incremented during add()
 
 		oldBuckets.forEach(bucket => {
 			if (bucket) {
@@ -228,6 +234,7 @@ class HashSet {
 		});
 	}
 
+	// Returns true if the key is in the set, false otherwise
 	has(key) {
 		const index = this.hash(key);
 		const bucket = this.buckets[index];
@@ -241,6 +248,7 @@ class HashSet {
 		return false;
 	}
 
+	// Removes a key from the set, returns true if found/removed, false otherwise
 	remove(key) {
 		const index = this.hash(key);
 		const bucket = this.buckets[index];
@@ -256,16 +264,19 @@ class HashSet {
 		return false;
 	}
 
+	// Returns the number of stored keys in the set
 	length() {
 		return this.size;
 	}
 
+	// Clears all entries and resets to initial capacity
 	clear() {
 		this.capacity = 16;
 		this.buckets = new Array(this.capacity);
 		this.size = 0;
 	}
 
+	// Returns an array containing all keys in the set
 	keys() {
 		const allKeys = [];
 		this.buckets.forEach(bucket => {
@@ -278,10 +289,12 @@ class HashSet {
 		return allKeys;
 	}
 
+	// In a HashSet, values are identical to keys
 	values() {
 		return this.keys();
 	}
 
+	// Returns an array containing [key, key] pairs to mirror HashMap's entries format
 	entries() {
 		const allEntries = [];
 		this.buckets.forEach(bucket => {
