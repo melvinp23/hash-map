@@ -178,7 +178,7 @@ class HashSet {
 		let hashCode = 0;
 		const primeNumber = 31;
 		for (let i = 0; i < key.length; i++) {
-			hashCode = (primeNumber * hashCode + key.charCodeAt(i)) & this.capacity;
+			hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.capacity;
 		}
 		return hashCode;
 	}
@@ -186,7 +186,7 @@ class HashSet {
 	add(key) {
 		const index = this.hash(key);
 		if (index < 0 || index >= this.buckets.length) {
-			throw new Error('Trying to acces index out of bound');
+			throw new Error('Trying to access index out of bound');
 		}
 
 		if (!this.buckets[index]) {
