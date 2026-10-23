@@ -282,5 +282,15 @@ class HashSet {
 		return this.keys();
 	}
 
-	entries() {}
+	entries() {
+		const allEntries = [];
+		this.buckets.forEach(bucket => {
+			if (bucket) {
+				bucket.forEach(key => {
+					allEntries.push([key, key]);
+				});
+			}
+		});
+		return allEntries;
+	}
 }
