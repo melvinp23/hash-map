@@ -256,9 +256,15 @@ class HashSet {
 		return false;
 	}
 
-	length() {}
+	length() {
+		return this.size;
+	}
 
-	clear() {}
+	clear() {
+		this.capacity = 16;
+		this.buckets = new Array(this.capacity);
+		this.size = 0;
+	}
 
 	keys() {}
 
