@@ -209,7 +209,9 @@ class HashSet {
 		}
 	}
 
-	set(key) {}
+	set(key) {
+		this.add(key);
+	}
 
 	resize() {}
 
